@@ -24,6 +24,7 @@ export interface IDescricaoUser {
 
 export interface IBanda {
     id?: number;
+    nome: string;
     numeroIntegrantes: number;
     integrantes: string;
     descricaoBanda: string;

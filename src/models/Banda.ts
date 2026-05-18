@@ -7,7 +7,7 @@ type BandaCreationAttributes = Optional <IBanda, "id">;
 
 class Banda extends Model<IBanda, BandaCreationAttributes>
     implements IBanda {
-        idBanda!: number;
+        nome!: string;
         numeroIntegrantes!: number;
         integrantes!: string;
         descricaoBanda!: string;
@@ -15,6 +15,10 @@ class Banda extends Model<IBanda, BandaCreationAttributes>
 
 Banda.init(
     {
+        nome:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         numeroIntegrantes:{
             type: DataTypes.NUMBER,
             allowNull: false
