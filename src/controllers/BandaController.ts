@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { CreateBandaDto } from "../dto/CreateBandaDto";
 import Banda from "../models/Banda"
+import { UpdateBandaDto } from "../dto/UpdateBanda";
 
 export default class BandaController {
     static async create(req: Request<CreateBandaDto>, res: Response): Promise<void> {
@@ -28,6 +29,33 @@ export default class BandaController {
             res.status(201).json({ message: "Banda criado com sucesso!!!!!" });
         } catch (error) {
             res.status(500).json({ message: "Erro interno no srv", error });
+        }
+    }
+
+    static async update(
+        req: Request<{ id: string }, {}, UpdateBandaDto>,
+        res: Response): Promise<void> {
+        const { id } = req.params;
+        const { nome, numeroIntegrantes, integrantes, descricaoBanda } = req.body;
+
+        if (!nome && !numeroIntegrantes && !integrantes && !descricaoBanda) {
+            res.status(422).json({ message: "Informe os campos para atualizar." });
+            return;
+        }
+
+        try {
+            const banda = await Banda.findByPk(id);
+
+            if (!banda) {
+                res.status(404).json({ message: "Banda não encontrada" });
+                return;
+            }
+
+            await banda.update({ nome, numeroIntegrantes, integrantes, descricaoBanda });
+
+            res.status(200).json({ message: "Banda atualizada com sucesso!", banda });
+        } catch (error) {
+            res.status(500).json({ message: "Erro interno no servidor", error });
         }
     }
 

@@ -4,11 +4,12 @@ export interface IUser{
     sobrenome: string;
     idade: number,
     email: string;
+    senha: string;
 }
 
 export interface IEndereco {
     id?: string;
-    endereco: string;
+    logradouro: string;
     numero: number;
     bairro: string;
     cidade: string;

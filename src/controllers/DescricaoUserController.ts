@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import DescricaoUser from "../models/DescricaoUser"
 import { CreateDescricaoUserDto } from "../dto/CreateDescricaoUserDto";
+import { UpdateDescricaoUserDto } from "../dto/UpdateDescricaoUserDto";
 
 export default class DescricaoUserController {
     static async create(req: Request<CreateDescricaoUserDto>, res: Response): Promise<void> {
@@ -27,6 +28,34 @@ export default class DescricaoUserController {
             res.status(500).json({ message: "Erro interno no srv", error });
         }
     }
+
+    static async update(
+        req: Request<{ id: string }, {}, UpdateDescricaoUserDto>,
+        res: Response): Promise<void> {
+        const { id } = req.params
+        const { descricao, instrumentos, habilidades } = req.body
+
+        if (!descricao && !instrumentos && !habilidades) {
+            res.status(422).json({ message: "Informe os campos para atualizar." });
+            return;
+        }
+
+        try {
+            const descricaoUser = await DescricaoUser.findByPk(id);
+
+            if (!descricaoUser) {
+                res.status(404).json({ message: "banda não encontrada" });
+                return;
+            }
+
+            await descricaoUser.update({ descricao, instrumentos, habilidades });
+
+            res.status(200).json({ message: "Alteração feita com sucesso", descricaoUser });
+        } catch (error) {
+            res.status(500).json({ message: "Erro interno no servidor", error });
+        }
+    }
+
 
     static async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
