@@ -1,5 +1,5 @@
 export interface UpdateEnderecoDto {
-    endereco: string;
+    logradouro: string;
     numero: number;
     bairro: string;
     cidade: string;

@@ -2,6 +2,7 @@ export interface CreateUserDto{
     id?: number;
     nome: string;
     sobrenome: string;
-    idade: number,
+    idade: number;
     email: string;
+    senha: string
 }
