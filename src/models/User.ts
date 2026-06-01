@@ -11,6 +11,7 @@ class User extends Model<IUser, UserCreationAttributes>
     public sobrenome!: string;
     public idade!: number;
     public email!: string;
+    public senha!: string;
 }
 
 User.init(
@@ -31,6 +32,10 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false
         },
+        senha:{
+            type: DataTypes.STRING,
+            allowNull: false
+        }
     },
     {
         sequelize: db,

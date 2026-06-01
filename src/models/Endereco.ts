@@ -7,7 +7,7 @@ type EnderecoCreationAttributes = Optional <IEndereco, "id" >;
 
 class Endereco extends Model<IEndereco, EnderecoCreationAttributes>
     implements IEndereco {;
-        endereco!: string;
+        logradouro!: string;
         numero!: number;
         bairro!: string;
         cidade!: string;
@@ -16,7 +16,7 @@ class Endereco extends Model<IEndereco, EnderecoCreationAttributes>
 
 Endereco.init(
     {
-        endereco:{
+        logradouro:{
             type: DataTypes.STRING,
             allowNull: false
         },
